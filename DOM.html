@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 2</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <button onclick="change()" class="btn btn-primary">Change</button>
+        <div class="data mt-4"></div>
+    </div>
+    <script>
+        const change = () => {
+            fetch("https://restcountries.com/v3.1/all")
+            .then(data => data.json())
+            .then(countries =>{
+                let html = `<table class="table table-bordered table-striped mt-4">`;
+                html += `<thead class="thead-dark">
+                            <tr>
+                                <th>Name</th>
+                                <th>Capital</th>
+                                <th>Flags</th>
+                            </tr>
+                        </thead>`;
+                html += `<tbody>`;
+                countries.map(country => {
+                    return html += `<tr>
+                        <td>${country.name.common}</td>
+                        <td>${country.capital}</td>
+                        <td><img src="${country.flags.svg}" width="100" height="100"/></td>
+                    </tr>`;
+                });
+                html += `</tbody>`;
+                html += `</table>`;
+                document.querySelector(".data").innerHTML = html;
+            });
+        }
+    </script>
+    
+    <!-- Add Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
